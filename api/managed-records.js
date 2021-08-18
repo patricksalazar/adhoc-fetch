@@ -19,6 +19,14 @@ const PRIMARY_COLORS = {
 window.path = 'http://localhost:3000/records';
 
 // Private helper function that constructs the url based on the options provided
+/*****************************************************************
+ * Function: _buildUrlHelper
+ * Params: options - request parameters
+ * Return: uri (string) - url string with request parameters
+ * Description:
+ *   Parse the request parameters such as page, limit and colors
+ *   and transform it into a records url request
+ ****************************************************************/
 function _buildUrlHelper(options) {
   let limit = options && options.limit ? options.limit : DEFAULT_LIMIT;
   let offset =
@@ -34,7 +42,17 @@ function _buildUrlHelper(options) {
   return uri;
 }
 
-// Transform payload into retrival response object
+/*****************************************************************
+ * Function: _transformPayload
+ * Params:
+ *  data - response json data
+ *  currentPage - current page number
+ * Return:
+ *  response - transformed response object
+ * Description:
+ *   Transform the data fetch payload from the records request into
+ *   into a consumable response object
+ ****************************************************************/
 function _transformPayload(data, currentPage) {
   let response = { ids: [], open: [], closedPrimaryCount: 0 };
 
@@ -56,6 +74,16 @@ function _transformPayload(data, currentPage) {
   return response;
 }
 
+/*****************************************************************
+ * Function: retrieve
+ * Params:
+ *  options - request parameters
+ * Return:
+ *  fetch Promise - transformed response object
+ * Description:
+ *   Call the managed records request using given request
+ *   parameters and return a transformed response object
+ ****************************************************************/
 // Your retrieve function plus any additional functions go here ...
 function retrieve(options) {
   let url = _buildUrlHelper(options);
